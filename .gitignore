@@ -8,10 +8,13 @@ mlruns/
 mlartifacts/
 mlflow.db
 
-# Models (may be large; keep only small selected models if committed deliberately)
+# Models: ignore large exports, but COMMIT the small champion pickles the
+# Streamlit Cloud app loads at serving time.
 models/*.pkl
 models/*.joblib
 !models/.gitkeep
+!models/clf_champion.pkl
+!models/reg_champion.pkl
 
 # Python
 __pycache__/
