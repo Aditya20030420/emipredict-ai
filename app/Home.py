@@ -1,13 +1,43 @@
 """EMIPredict AI - Streamlit entry page."""
 import streamlit as st
 
-from theme import setup_page, page_header, ICONS, PRIMARY, NAVY, MUTED, BORDER
+from theme import setup_page, page_header, ICONS, PRIMARY, NAVY, MUTED, BORDER, INK
 from utils import load_models
 
 setup_page("Home", "💳")
 page_header("EMIPredict AI",
             "Intelligent Financial Risk Assessment Platform — FinTech & Banking",
             icon="shield")
+
+# --- What is this for? ---------------------------------------------------
+st.markdown(
+    f"""
+    <div style="border:1px solid {BORDER};border-radius:14px;padding:22px 26px;
+                background:#F8FAFC;margin-bottom:20px;">
+      <div style="font-size:1.1rem;font-weight:600;color:{NAVY};margin-bottom:8px;">
+        What is this for?
+      </div>
+      <div style="color:{INK};font-size:.95rem;line-height:1.6;">
+        <b>EMIPredict AI helps lenders decide whether to approve a loan and how
+        much a person can safely repay each month.</b> Many borrowers struggle
+        with EMIs because affordability isn't assessed properly. This platform
+        uses machine learning trained on 400,000 financial profiles to give an
+        instant, data-driven risk assessment — replacing slow, manual underwriting.
+      </div>
+      <div style="color:{MUTED};font-size:.88rem;line-height:1.6;margin-top:12px;">
+        <b>Who uses it:</b> loan officers and underwriters for quick approval
+        decisions · banks &amp; credit agencies for risk-based pricing and
+        default prevention · FinTech apps for instant eligibility checks.
+      </div>
+      <div style="color:{MUTED};font-size:.88rem;line-height:1.6;margin-top:12px;">
+        <b>It answers two questions:</b>
+        1) Is this applicant <i>Eligible</i>, <i>High-Risk</i>, or
+        <i>Not Eligible</i>?  2) What is the largest monthly EMI they can safely afford?
+      </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 # --- KPI row -------------------------------------------------------------
 k1, k2, k3, k4 = st.columns(4)
