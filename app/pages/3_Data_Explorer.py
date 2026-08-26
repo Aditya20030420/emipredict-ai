@@ -10,9 +10,12 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 from src import config as C  # noqa: E402
 from src.data_loader import clean  # noqa: E402
+from theme import setup_page, page_header  # noqa: E402
 
-st.set_page_config(page_title="Data Explorer", page_icon="📊", layout="wide")
-st.title("📊 Data Explorer")
+setup_page("Data Explorer", "📊")
+page_header("Data Explorer",
+            "Explore the EMI dataset with live filters and per-scenario views.",
+            icon="database")
 
 
 @st.cache_data

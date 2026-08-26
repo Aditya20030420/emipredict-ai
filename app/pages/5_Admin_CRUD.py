@@ -4,10 +4,13 @@ import streamlit as st
 from utils import (create_record, delete_record, init_db, read_records,
                    update_record, applicant_form)
 
-st.set_page_config(page_title="Admin CRUD", page_icon="🗂️", layout="wide")
-st.title("🗂️ Admin — Applicant Records")
-st.caption("SQLite-backed CRUD. On Streamlit Cloud the DB resets on redeploy "
-           "(demo storage).")
+from theme import setup_page, page_header
+
+setup_page("Admin", "🗂️")
+page_header("Admin — Applicant Records",
+            "Manage saved applicant records (SQLite-backed CRUD).",
+            icon="database")
+st.caption("On Streamlit Cloud the database resets on redeploy (demo storage).")
 
 init_db()
 

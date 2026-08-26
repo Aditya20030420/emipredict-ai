@@ -8,8 +8,12 @@ import streamlit as st
 ROOT = Path(__file__).resolve().parents[2]
 REPORTS = ROOT / "reports"
 
-st.set_page_config(page_title="Model Dashboard", page_icon="📈", layout="wide")
-st.title("📈 Model Performance Dashboard")
+from theme import setup_page, page_header  # noqa: E402
+
+setup_page("Model Dashboard", "📈")
+page_header("Model Performance Dashboard",
+            "Model comparison and MLflow-tracked metrics across both tasks.",
+            icon="chart")
 st.caption("All models tracked in MLflow across two experiments "
            "(emi_classification, emi_regression).")
 
