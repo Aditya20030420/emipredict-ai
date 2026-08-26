@@ -33,8 +33,12 @@ __pycache__/
 venv/
 env/
 
-# Reports: keep markdown, result CSVs, and EDA plots (small, needed by the app)
+# Reports: keep markdown docs and result CSVs; exclude plots and the brief
 !reports/*.csv
+reports/*.png
+
+# Project brief (kept local, not published)
+Project Title.docx
 
 # OS / editor
 .DS_Store
