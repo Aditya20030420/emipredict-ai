@@ -6,6 +6,7 @@ data/processed/
 # MLflow tracking store
 mlruns/
 mlartifacts/
+mlflow.db
 
 # Models (may be large; keep only small selected models if committed deliberately)
 models/*.pkl

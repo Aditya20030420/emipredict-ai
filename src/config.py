@@ -14,6 +14,10 @@ MODELS_DIR = ROOT / "models"
 REPORTS_DIR = ROOT / "reports"
 MLRUNS_DIR = ROOT / "mlruns"
 
+# MLflow 3.x deprecated the file store; use SQLite backend (also required for
+# the model registry). Artifacts default to ./mlartifacts.
+MLFLOW_TRACKING_URI = f"sqlite:///{(ROOT / 'mlflow.db').as_posix()}"
+
 # --- Targets -------------------------------------------------------------
 TARGET_CLF = "emi_eligibility"          # 3 classes (imbalanced)
 TARGET_REG = "max_monthly_emi"          # continuous, INR
