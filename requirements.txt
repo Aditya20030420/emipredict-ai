@@ -1,10 +1,11 @@
-# Python 3.11 recommended (Streamlit Cloud + XGBoost + MLflow reliable there)
-pandas==2.2.2
-numpy==1.26.4
-scikit-learn==1.5.1
-xgboost==2.1.1
-mlflow==2.16.2
-streamlit==1.38.0
-matplotlib==3.9.2
-seaborn==0.13.2
-joblib==1.4.2
+# Streamlit Cloud runtime deps (app only). Pinned to the versions the
+# committed champion pickles were trained/serialized with — do NOT downgrade
+# scikit-learn/xgboost or model loading will break.
+# Training-only deps (mlflow, etc.) live in requirements-dev.txt.
+streamlit==1.53.1
+pandas==2.3.3
+numpy==2.4.6
+scikit-learn==1.8.0
+xgboost==3.2.0
+joblib==1.5.3
+cloudpickle==3.1.2

@@ -36,7 +36,14 @@ The CSV is **not committed** (72 MB, gitignored). Place it at
 ```bash
 python -m venv .venv
 .venv\Scripts\activate        # Windows
-pip install -r requirements.txt
+pip install -r requirements-dev.txt   # full env (training, MLflow, EDA)
+# The deployed app only needs the lean requirements.txt.
+```
+
+Run the app locally:
+
+```bash
+python -m streamlit run app/Home.py
 ```
 
 ## Run the pipeline so far
@@ -56,6 +63,17 @@ models/     exported best models
 reports/    EDA + quality + model-comparison reports
 notebooks/  EDA / feature-engineering exploration
 ```
+
+## Deploy (Streamlit Community Cloud)
+
+1. Push this repo to GitHub.
+2. At [share.streamlit.io](https://share.streamlit.io) → **New app**, pick the repo,
+   set **Main file path** to `app/Home.py`, and select **Python 3.12**.
+3. It installs `requirements.txt` (lean, app-only) and serves the public URL.
+
+The app is cloud-ready: small committed models (`models/*.pkl`), a 5K-row
+`data/sample.csv` for the explorer, and a SQLite CRUD store that self-initializes
+(it resets on redeploy — demo storage).
 
 ## Grading targets
 
