@@ -1,8 +1,8 @@
 """EMIPredict AI - Streamlit entry page."""
 import streamlit as st
 
-from theme import (setup_page, page_header, render_footer, ICONS, PRIMARY,
-                   NAVY, MUTED, BORDER, INK)
+from theme import (setup_page, page_header, render_footer, nav_row, ICONS,
+                   PRIMARY, NAVY, MUTED, BORDER, INK)
 from utils import load_models
 
 setup_page("Home", "💳")
@@ -71,11 +71,12 @@ st.write("")
 
 # --- Quick launch --------------------------------------------------------
 st.markdown("##### Tools")
-lc1, lc2, lc3, lc4 = st.columns(4)
-lc1.page_link("pages/1_Predict_Eligibility.py", label="Predict Eligibility", icon="✅")
-lc2.page_link("pages/2_Predict_Max_EMI.py", label="Predict Max EMI", icon="💰")
-lc3.page_link("pages/3_Data_Explorer.py", label="Data Explorer", icon="📊")
-lc4.page_link("pages/4_Model_Dashboard.py", label="Model Dashboard", icon="📈")
+nav_row([
+    ("Predict_Eligibility", "check", "Predict Eligibility"),
+    ("Predict_Max_EMI", "rupee", "Predict Max EMI"),
+    ("Data_Explorer", "database", "Data Explorer"),
+    ("Model_Dashboard", "chart", "Model Dashboard"),
+])
 st.write("")
 
 # --- Feature cards -------------------------------------------------------

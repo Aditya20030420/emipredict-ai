@@ -1,7 +1,7 @@
 """Predict maximum safe monthly EMI (regression)."""
 import streamlit as st
 
-from theme import setup_page, page_header, result_card, PRIMARY
+from theme import setup_page, page_header, result_card, callout, PRIMARY
 from utils import applicant_form, create_record, load_models, predict_max_emi
 
 setup_page("Predict Max EMI", "💰")
@@ -9,9 +9,9 @@ page_header("Predict Maximum Monthly EMI",
             "Estimate the largest monthly EMI an applicant can safely afford.",
             icon="rupee")
 
-st.info("Enter the applicant's profile, then press **Predict max EMI**. "
+callout("Enter the applicant's profile, then press <b>Predict max EMI</b>. "
         "The result is the highest monthly instalment they can comfortably "
-        "pay — compare it against the loan they requested.", icon="ℹ️")
+        "pay — compare it against the loan they requested.")
 
 _, reg = load_models()
 
@@ -41,5 +41,5 @@ if submitted:
 
     if save:
         rec_id = create_record(row.iloc[0].to_dict(), pred_emi=emi)
-        st.toast(f"Saved as record #{rec_id}", icon="💾")
+        st.toast(f"Saved as record #{rec_id}")
         st.caption(f"Saved as record #{rec_id} — see Admin CRUD.")

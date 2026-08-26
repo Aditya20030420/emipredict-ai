@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 from src import config as C  # noqa: E402
-from theme import setup_page, page_header, result_card, RISK
+from theme import setup_page, page_header, result_card, callout, RISK
 from utils import applicant_form, create_record, load_models, predict_eligibility
 
 setup_page("Predict Eligibility", "✅")
@@ -16,9 +16,8 @@ page_header("Predict EMI Eligibility",
             "whether they qualify for the loan.",
             icon="check")
 
-st.info("Enter an applicant's profile, then press **Predict eligibility**. "
-        "The result shows one of three outcomes and how confident the model is.",
-        icon="ℹ️")
+callout("Enter an applicant's profile, then press <b>Predict eligibility</b>. "
+        "The result shows one of three outcomes and how confident the model is.")
 
 clf, _ = load_models()
 
@@ -47,7 +46,7 @@ if submitted:
 
     if save:
         rec_id = create_record(row.iloc[0].to_dict(), pred_elig=label)
-        st.toast(f"Saved as record #{rec_id}", icon="💾")
+        st.toast(f"Saved as record #{rec_id}")
         st.caption(f"Saved as record #{rec_id} — see Admin CRUD.")
 
 st.caption(
