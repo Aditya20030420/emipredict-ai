@@ -1,7 +1,8 @@
 """EMIPredict AI - Streamlit entry page."""
 import streamlit as st
 
-from theme import setup_page, page_header, ICONS, PRIMARY, NAVY, MUTED, BORDER, INK
+from theme import (setup_page, page_header, render_footer, ICONS, PRIMARY,
+                   NAVY, MUTED, BORDER, INK)
 from utils import load_models
 
 setup_page("Home", "💳")
@@ -29,23 +30,52 @@ st.markdown(
         decisions · banks &amp; credit agencies for risk-based pricing and
         default prevention · FinTech apps for instant eligibility checks.
       </div>
-      <div style="color:{MUTED};font-size:.88rem;line-height:1.6;margin-top:12px;">
-        <b>It answers two questions:</b>
-        1) Is this applicant <i>Eligible</i>, <i>High-Risk</i>, or
-        <i>Not Eligible</i>?  2) What is the largest monthly EMI they can safely afford?
-      </div>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-# --- KPI row -------------------------------------------------------------
-k1, k2, k3, k4 = st.columns(4)
-k1.metric("Classification accuracy", "94.5%", "target > 90%")
-k2.metric("High-Risk recall", "0.93", "+0.39 vs untuned")
-k3.metric("Regression RMSE", "₹705", "target < 2000")
-k4.metric("Records analysed", "404,800", "5 EMI scenarios")
+# Two questions it answers, as clear side-by-side cards.
+q1, q2 = st.columns(2)
+for col, num, q in [
+    (q1, "1", "Is this applicant <b>Eligible</b>, <b>High-Risk</b>, or "
+     "<b>Not Eligible</b> for the loan?"),
+    (q2, "2", "What is the <b>largest monthly EMI</b> they can safely afford?"),
+]:
+    col.markdown(
+        f"""
+        <div style="border:1px solid {BORDER};border-left:4px solid {PRIMARY};
+                    border-radius:10px;padding:14px 18px;margin-bottom:16px;
+                    background:#fff;min-height:78px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="background:{PRIMARY};color:#fff;font-weight:700;
+                         border-radius:50%;width:24px;height:24px;flex:none;
+                         display:flex;align-items:center;justify-content:center;
+                         font-size:.85rem;">{num}</span>
+            <span style="color:{INK};font-size:.92rem;line-height:1.5;">{q}</span>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
+# --- KPI row -------------------------------------------------------------
+st.markdown("##### Model performance at a glance")
+k1, k2, k3, k4 = st.columns(4)
+k1.metric("Accuracy", "94.5%", "target > 90%")
+k2.metric("High-Risk recall", "0.93", "+0.39 vs untuned")
+k3.metric("Max-EMI error (RMSE)", "₹705", "target < ₹2000")
+k4.metric("Records analysed", "404.8K", "5 loan types")
+
+st.write("")
+
+# --- Quick launch --------------------------------------------------------
+st.markdown("##### Tools")
+lc1, lc2, lc3, lc4 = st.columns(4)
+lc1.page_link("pages/1_Predict_Eligibility.py", label="Predict Eligibility", icon="✅")
+lc2.page_link("pages/2_Predict_Max_EMI.py", label="Predict Max EMI", icon="💰")
+lc3.page_link("pages/3_Data_Explorer.py", label="Data Explorer", icon="📊")
+lc4.page_link("pages/4_Model_Dashboard.py", label="Model Dashboard", icon="📈")
 st.write("")
 
 # --- Feature cards -------------------------------------------------------
@@ -65,7 +95,8 @@ for i, (icon, title, desc) in enumerate(CARDS):
         st.markdown(
             f"""
             <div style="border:1px solid {BORDER};border-radius:14px;padding:20px 22px;
-                        margin-bottom:16px;background:#fff;box-shadow:0 1px 2px rgba(15,23,42,.04);">
+                        margin-bottom:16px;background:#fff;min-height:118px;
+                        box-shadow:0 1px 2px rgba(15,23,42,.04);">
               <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
                 <span style="color:{PRIMARY};">{ICONS[icon]}</span>
                 <span style="font-size:1.05rem;font-weight:600;color:{NAVY};">{title}</span>
@@ -75,8 +106,6 @@ for i, (icon, title, desc) in enumerate(CARDS):
             """,
             unsafe_allow_html=True,
         )
-
-st.info("Use the sidebar to navigate between tools. →", icon="👈")
 
 # --- Model status --------------------------------------------------------
 try:
@@ -98,3 +127,5 @@ with st.expander("About the models & methodology"):
 - All experiments are tracked in **MLflow** with a versioned model registry.
 """
     )
+
+render_footer()

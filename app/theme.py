@@ -138,6 +138,20 @@ def page_header(title: str, subtitle: str, icon: str = "shield"):
     )
 
 
+def render_footer():
+    st.markdown(
+        f"""
+        <hr style="border:none;border-top:1px solid {BORDER};margin:2.5rem 0 1rem;">
+        <div style="text-align:center;color:{MUTED};font-size:.82rem;line-height:1.6;">
+          <b style="color:{NAVY};">EMIPredict AI</b> · Financial Risk Assessment
+          Platform &nbsp;•&nbsp; XGBoost + MLflow + Streamlit &nbsp;•&nbsp;
+          For demonstration and educational use
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def result_card(label: str, value: str, fg: str, bg: str):
     st.markdown(
         f"""
