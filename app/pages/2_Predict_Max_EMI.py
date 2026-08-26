@@ -6,8 +6,12 @@ from utils import applicant_form, create_record, load_models, predict_max_emi
 
 setup_page("Predict Max EMI", "💰")
 page_header("Predict Maximum Monthly EMI",
-            "Estimate the maximum safe monthly EMI for an applicant (₹).",
+            "Estimate the largest monthly EMI an applicant can safely afford.",
             icon="rupee")
+
+st.info("Enter the applicant's profile, then press **Predict max EMI**. "
+        "The result is the highest monthly instalment they can comfortably "
+        "pay — compare it against the loan they requested.", icon="ℹ️")
 
 _, reg = load_models()
 
@@ -25,9 +29,10 @@ if submitted:
     tenure = int(row["requested_tenure"].iloc[0])
     naive_emi = requested / max(tenure, 1)
     c1, c2 = st.columns(2)
-    c1.metric("Max safe EMI (model)", f"₹{emi:,.0f}")
-    c2.metric("Requested amount ÷ tenure", f"₹{naive_emi:,.0f}",
-              help="Simple undiscounted monthly outflow for the requested loan.")
+    c1.metric("Safe monthly EMI (estimated)", f"₹{emi:,.0f}",
+              help="The most the applicant can comfortably pay each month.")
+    c2.metric("This loan's monthly instalment", f"₹{naive_emi:,.0f}",
+              help="Requested amount divided by the repayment period.")
     if naive_emi > emi:
         st.warning("The requested loan's monthly outflow exceeds the estimated "
                    "safe EMI — consider a longer tenure or a smaller amount.")

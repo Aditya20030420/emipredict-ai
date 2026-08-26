@@ -110,6 +110,66 @@ NUMERIC_INPUT_SPEC = {
     "requested_tenure": (24, 3, 84, 1),
 }
 
+# --- Human-readable field labels + help (for the app forms) --------------
+FIELD_LABELS = {
+    "age": "Age (years)",
+    "gender": "Gender",
+    "marital_status": "Marital status",
+    "education": "Education level",
+    "monthly_salary": "Monthly salary (₹)",
+    "employment_type": "Employment type",
+    "years_of_employment": "Years of employment",
+    "company_type": "Company type",
+    "house_type": "Housing",
+    "monthly_rent": "Monthly rent (₹)",
+    "family_size": "Family size",
+    "dependents": "Dependents",
+    "school_fees": "School fees (₹/month)",
+    "college_fees": "College fees (₹/month)",
+    "travel_expenses": "Travel expenses (₹/month)",
+    "groceries_utilities": "Groceries & utilities (₹/month)",
+    "other_monthly_expenses": "Other expenses (₹/month)",
+    "existing_loans": "Has existing loans?",
+    "current_emi_amount": "Current EMI paid (₹/month)",
+    "credit_score": "Credit score (300–850)",
+    "bank_balance": "Bank balance (₹)",
+    "emergency_fund": "Emergency fund (₹)",
+    "emi_scenario": "Loan purpose",
+    "requested_amount": "Requested loan amount (₹)",
+    "requested_tenure": "Repayment period (months)",
+}
+
+FIELD_HELP = {
+    "monthly_salary": "Gross monthly income before deductions.",
+    "years_of_employment": "Total work experience; higher usually means more stable.",
+    "credit_score": "Creditworthiness. 300 is poor, 850 is excellent.",
+    "current_emi_amount": "Total EMIs the applicant already pays each month.",
+    "emergency_fund": "Savings set aside for emergencies.",
+    "bank_balance": "Current account balance.",
+    "requested_amount": "How much the applicant wants to borrow.",
+    "requested_tenure": "Over how many months the loan is repaid.",
+    "dependents": "People who rely on the applicant financially.",
+    "house_type": "Rented, owned, or living with family.",
+}
+
+# One-line guidance shown under each form section.
+GROUP_HELP = {
+    "Demographics": "Basic personal details of the applicant.",
+    "Employment & Income": "Where the money comes from and how stable it is.",
+    "Housing & Family": "Living situation and household size.",
+    "Monthly Obligations": "Recurring monthly costs the applicant already has.",
+    "Credit & Status": "Credit history, savings, and existing debt.",
+    "Loan Request": "What the applicant is applying for.",
+}
+
+# Plain-language meaning of each eligibility class.
+ELIGIBILITY_MEANING = {
+    "Eligible": "Low risk — the applicant can comfortably afford this EMI.",
+    "High_Risk": "Marginal — approve only with caution (e.g. higher interest "
+                 "rate, smaller amount, or longer tenure).",
+    "Not_Eligible": "High risk — this loan is not recommended.",
+}
+
 # --- Split ---------------------------------------------------------------
 RANDOM_STATE = 42
 TEST_SIZE = 0.15

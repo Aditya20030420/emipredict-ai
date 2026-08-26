@@ -62,16 +62,22 @@ def applicant_form(key_prefix: str = "f") -> pd.DataFrame:
     }
     for group, fields in groups.items():
         st.subheader(group)
+        if group in C.GROUP_HELP:
+            st.caption(C.GROUP_HELP[group])
         cols = st.columns(2)
         for i, f in enumerate(fields):
             col = cols[i % 2]
             k = f"{key_prefix}_{f}"
+            label = C.FIELD_LABELS.get(f, f)
+            help_txt = C.FIELD_HELP.get(f)
             if f in C.CATEGORY_OPTIONS:
-                vals[f] = col.selectbox(f, C.CATEGORY_OPTIONS[f], key=k)
+                vals[f] = col.selectbox(label, C.CATEGORY_OPTIONS[f],
+                                        key=k, help=help_txt)
             else:
                 default, lo, hi, step = C.NUMERIC_INPUT_SPEC[f]
-                vals[f] = col.number_input(f, min_value=lo, max_value=hi,
-                                           value=default, step=step, key=k)
+                vals[f] = col.number_input(label, min_value=lo, max_value=hi,
+                                           value=default, step=step, key=k,
+                                           help=help_txt)
     return pd.DataFrame([vals])[FEATURE_ORDER]
 
 
