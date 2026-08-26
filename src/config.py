@@ -77,6 +77,39 @@ SCENARIO_BOUNDS = {
     "Education EMI":           {"amount": (50_000, 500_000), "tenure": (6, 48)},
 }
 
+# --- Category options (single source of truth for the app forms) ---------
+CATEGORY_OPTIONS = {
+    "gender": ["Male", "Female"],
+    "marital_status": ["Single", "Married"],
+    "employment_type": ["Private", "Government", "Self-employed"],
+    "company_type": ["Large Indian", "MNC", "Mid-size", "Startup", "Small"],
+    "house_type": ["Rented", "Own", "Family"],
+    "existing_loans": ["No", "Yes"],
+    "emi_scenario": list(SCENARIO_BOUNDS.keys()),
+    "education": ORDINAL_FEATURES["education"],
+}
+
+# Sensible numeric defaults + (min, max, step) for app number inputs.
+NUMERIC_INPUT_SPEC = {
+    "age": (35, 25, 60, 1),
+    "monthly_salary": (50_000, 5_000, 300_000, 1_000),
+    "years_of_employment": (5, 0, 40, 1),
+    "monthly_rent": (10_000, 0, 100_000, 500),
+    "family_size": (3, 1, 12, 1),
+    "dependents": (1, 0, 10, 1),
+    "school_fees": (0, 0, 100_000, 500),
+    "college_fees": (0, 0, 300_000, 1_000),
+    "travel_expenses": (3_000, 0, 50_000, 500),
+    "groceries_utilities": (8_000, 0, 100_000, 500),
+    "other_monthly_expenses": (3_000, 0, 100_000, 500),
+    "current_emi_amount": (0, 0, 100_000, 500),
+    "credit_score": (700, 300, 850, 5),
+    "bank_balance": (100_000, 0, 5_000_000, 5_000),
+    "emergency_fund": (50_000, 0, 5_000_000, 5_000),
+    "requested_amount": (200_000, 5_000, 1_500_000, 5_000),
+    "requested_tenure": (24, 3, 84, 1),
+}
+
 # --- Split ---------------------------------------------------------------
 RANDOM_STATE = 42
 TEST_SIZE = 0.15
