@@ -116,10 +116,22 @@ section[data-testid="stSidebar"] {
     background: linear-gradient(180deg, #0B2A4A 0%, #0E3560 100%);
     border-right: 1px solid rgba(255,255,255,.06);
     width: 260px !important; min-width: 260px !important;
+    position: relative;
 }
-/* Flex column so branding anchors to the bottom */
+/* Flex column so brand + nav stack from the top */
 section[data-testid="stSidebar"] [data-testid="stSidebarContent"] {
     display: flex; flex-direction: column; height: 100%;
+}
+/* Neutralize Streamlit's wrappers around the footer so it anchors to the
+   sidebar section, not the zero-height element container */
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.sidebar-footer),
+section[data-testid="stSidebar"] .stMarkdown:has(.sidebar-footer) {
+    position: static !important;
+}
+/* Status footer pinned to the bottom of the sidebar */
+section[data-testid="stSidebar"] .sidebar-footer {
+    position: absolute; left: 0; right: 0; bottom: 18px; padding: 0 20px;
+    z-index: 1;
 }
 /* Brand block sits at the TOP, above the navigation */
 section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
@@ -295,6 +307,28 @@ def setup_page(title: str, icon_emoji: str = "💳"):
                        page_icon=icon_emoji, layout="wide")
     st.markdown(_CSS, unsafe_allow_html=True)
     sidebar_brand()
+    sidebar_footer()
+
+
+def sidebar_footer():
+    st.sidebar.markdown(
+        """
+        <div class="sidebar-footer">
+          <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:12px;">
+            <div style="display:flex;align-items:center;gap:9px;font-size:.8rem;
+                        color:#CBD5E1;font-weight:600;">
+              <span style="width:8px;height:8px;border-radius:50%;background:#22C55E;
+                           box-shadow:0 0 0 3px rgba(34,197,94,.20);"></span>
+              Models active
+            </div>
+            <div style="font-size:.72rem;color:#8B9CB3;margin-top:7px;line-height:1.55;">
+              XGBoost classifier + regressor<br>Tracked with MLflow
+            </div>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
 def sidebar_brand():
