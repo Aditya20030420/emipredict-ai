@@ -6,9 +6,23 @@ contrast, dashboard density. Semantic colors for the 3 risk classes. SVG icons
 """
 from __future__ import annotations
 
+import base64
+from functools import lru_cache
 from pathlib import Path
 
 import streamlit as st
+
+_ASSETS = Path(__file__).resolve().parent / "assets"
+
+
+@lru_cache(maxsize=8)
+def _img_tag(name: str, size: int) -> str:
+    p = _ASSETS / name
+    if not p.exists():
+        return ""
+    data = base64.b64encode(p.read_bytes()).decode()
+    return (f'<img src="data:image/png;base64,{data}" width="{size}" '
+            f'height="{size}" style="display:block"/>')
 
 # --- Brand palette -------------------------------------------------------
 NAVY = "#0B2A4A"
@@ -360,7 +374,7 @@ def sidebar_brand():
         <div style="display:flex;align-items:center;gap:11px;padding:2px 0 14px 0;
                     margin:0 0 6px 0;
                     border-bottom:1px solid rgba(255,255,255,.12);">
-          <span class="brand-logo" style="display:flex;">{ICONS['logo']}</span>
+          <span class="brand-logo" style="display:flex;">{_img_tag("logo_white.png", 34)}</span>
           <div style="line-height:1.2;">
             <div style="font-weight:700;font-size:1.1rem;color:#fff;letter-spacing:-.01em;">EMIPredict AI</div>
             <div style="font-size:.7rem;color:#8B9CB3;font-weight:500;">Risk Assessment Platform</div>
@@ -415,10 +429,16 @@ def factor_rows(factors: list):
 
 
 def page_header(title: str, subtitle: str, icon: str = "shield"):
+    if icon == "logo":
+        icon_html = _img_tag("logo_navy.png", 36)
+        chip = 'style="background:#fff;"'
+    else:
+        icon_html = ICONS.get(icon, ICONS["shield"])
+        chip = ""
     st.markdown(
         f"""
         <div class="app-hero">
-            <div class="hero-icon">{ICONS.get(icon, ICONS['shield'])}</div>
+            <div class="hero-icon" {chip}>{icon_html}</div>
             <div><h1>{title}</h1><p>{subtitle}</p></div>
         </div>
         """,
