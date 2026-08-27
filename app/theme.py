@@ -178,10 +178,73 @@ for _k, _v in {"NAVY": NAVY, "PRIMARY": PRIMARY, "INK": INK, "MUTED": MUTED,
     _CSS = _CSS.replace("__%s__" % _k, _v)
 
 
+STATUS_COLORS = {"good": "#15803D", "warn": "#B45309", "bad": "#B91C1C"}
+
+
 def setup_page(title: str, icon_emoji: str = "💳"):
     st.set_page_config(page_title=f"{title} · EMIPredict AI",
                        page_icon=icon_emoji, layout="wide")
     st.markdown(_CSS, unsafe_allow_html=True)
+    sidebar_brand()
+
+
+def sidebar_brand():
+    st.sidebar.markdown(
+        f"""
+        <div style="display:flex;align-items:center;gap:10px;padding:6px 4px 14px;
+                    border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:8px;">
+          <span style="color:#fff;">{ICONS['shield']}</span>
+          <div style="line-height:1.15;">
+            <div style="font-weight:700;font-size:1.05rem;color:#fff;">EMIPredict AI</div>
+            <div style="font-size:.72rem;color:#94A3B8;">Risk Assessment Platform</div>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def risk_gauge(percent: float, color: str, caption: str = ""):
+    """Semicircular gauge (0-100%). percent is the fill fraction 0..1."""
+    pct = max(0.0, min(1.0, percent))
+    # Semicircle arc length for r=54 is pi*r ≈ 169.6
+    arc = 169.6
+    dash = arc * pct
+    st.markdown(
+        f"""
+        <div style="text-align:center;">
+          <svg width="180" height="104" viewBox="0 0 130 74">
+            <path d="M11 65 A54 54 0 0 1 119 65" fill="none"
+                  stroke="#E2E8F0" stroke-width="12" stroke-linecap="round"/>
+            <path d="M11 65 A54 54 0 0 1 119 65" fill="none"
+                  stroke="{color}" stroke-width="12" stroke-linecap="round"
+                  stroke-dasharray="{dash} {arc}"/>
+            <text x="65" y="60" text-anchor="middle" font-size="22"
+                  font-weight="700" fill="{color}">{pct*100:.0f}%</text>
+          </svg>
+          <div style="color:{MUTED};font-size:.8rem;margin-top:-6px;">{caption}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def factor_rows(factors: list):
+    """Render explainability factors as colored rows."""
+    rows = ""
+    for f in factors:
+        c = STATUS_COLORS.get(f["status"], MUTED)
+        rows += (
+            f'<div style="display:flex;align-items:center;gap:12px;padding:10px 14px;'
+            f'border:1px solid {BORDER};border-left:4px solid {c};border-radius:10px;'
+            f'margin-bottom:8px;background:#fff;">'
+            f'<span style="width:9px;height:9px;border-radius:50%;background:{c};flex:none;"></span>'
+            f'<span style="flex:1;color:{INK};font-weight:600;font-size:.9rem;">{f["label"]}</span>'
+            f'<span style="color:{c};font-weight:700;font-size:.95rem;">{f["value"]}</span>'
+            f'<span style="flex-basis:100%;color:{MUTED};font-size:.78rem;'
+            f'padding-left:21px;">{f["note"]}</span></div>'
+        )
+    st.markdown(f'<div style="margin-top:6px;">{rows}</div>', unsafe_allow_html=True)
 
 
 def page_header(title: str, subtitle: str, icon: str = "shield"):

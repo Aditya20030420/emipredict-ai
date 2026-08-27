@@ -170,6 +170,46 @@ ELIGIBILITY_MEANING = {
     "Not_Eligible": "High risk — this loan is not recommended.",
 }
 
+# --- Example applicants (one-click demo profiles) ------------------------
+EXAMPLE_APPLICANTS = {
+    "Strong applicant": {
+        "age": 38, "gender": "Male", "marital_status": "Married",
+        "education": "Post Graduate", "monthly_salary": 90000,
+        "employment_type": "Government", "years_of_employment": 12,
+        "company_type": "Large Indian", "house_type": "Own", "monthly_rent": 0,
+        "family_size": 3, "dependents": 1, "school_fees": 0, "college_fees": 0,
+        "travel_expenses": 3000, "groceries_utilities": 12000,
+        "other_monthly_expenses": 4000, "existing_loans": "No",
+        "current_emi_amount": 0, "credit_score": 780, "bank_balance": 500000,
+        "emergency_fund": 300000, "emi_scenario": "E-commerce Shopping EMI",
+        "requested_amount": 80000, "requested_tenure": 12,
+    },
+    "Marginal applicant": {
+        "age": 34, "gender": "Male", "marital_status": "Married",
+        "education": "Graduate", "monthly_salary": 65000,
+        "employment_type": "Private", "years_of_employment": 6,
+        "company_type": "Mid-size", "house_type": "Rented", "monthly_rent": 18000,
+        "family_size": 4, "dependents": 2, "school_fees": 8000, "college_fees": 0,
+        "travel_expenses": 5000, "groceries_utilities": 15000,
+        "other_monthly_expenses": 6000, "existing_loans": "Yes",
+        "current_emi_amount": 8000, "credit_score": 690, "bank_balance": 120000,
+        "emergency_fund": 60000, "emi_scenario": "Personal Loan EMI",
+        "requested_amount": 400000, "requested_tenure": 48,
+    },
+    "Weak applicant": {
+        "age": 29, "gender": "Male", "marital_status": "Single",
+        "education": "High School", "monthly_salary": 32000,
+        "employment_type": "Self-employed", "years_of_employment": 2,
+        "company_type": "Small", "house_type": "Rented", "monthly_rent": 15000,
+        "family_size": 4, "dependents": 3, "school_fees": 6000, "college_fees": 0,
+        "travel_expenses": 4000, "groceries_utilities": 14000,
+        "other_monthly_expenses": 5000, "existing_loans": "Yes",
+        "current_emi_amount": 9000, "credit_score": 610, "bank_balance": 40000,
+        "emergency_fund": 10000, "emi_scenario": "Vehicle EMI",
+        "requested_amount": 900000, "requested_tenure": 60,
+    },
+}
+
 # --- Split ---------------------------------------------------------------
 RANDOM_STATE = 42
 TEST_SIZE = 0.15

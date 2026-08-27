@@ -46,9 +46,21 @@ def predict_max_emi(reg, row: pd.DataFrame) -> float:
 
 
 # --- Input form ----------------------------------------------------------
+def apply_example(prefix: str, profile: dict):
+    """Load an example applicant into the form (bumps a version to reset widgets)."""
+    st.session_state[f"{prefix}_preset"] = dict(profile)
+    st.session_state[f"{prefix}_ver"] = st.session_state.get(f"{prefix}_ver", 0) + 1
+
+
 def applicant_form(key_prefix: str = "f") -> pd.DataFrame:
-    """Render grouped inputs; return a single-row DataFrame in FEATURE_ORDER."""
+    """Render grouped inputs; return a single-row DataFrame in FEATURE_ORDER.
+
+    Supports one-click example loading via apply_example(): a version counter
+    in session_state forces fresh widgets that honour the preset values.
+    """
     vals = {}
+    ver = st.session_state.get(f"{key_prefix}_ver", 0)
+    preset = st.session_state.get(f"{key_prefix}_preset", {})
     groups = {
         "Demographics": ["age", "gender", "marital_status", "education"],
         "Employment & Income": ["monthly_salary", "employment_type",
@@ -67,18 +79,63 @@ def applicant_form(key_prefix: str = "f") -> pd.DataFrame:
         cols = st.columns(2)
         for i, f in enumerate(fields):
             col = cols[i % 2]
-            k = f"{key_prefix}_{f}"
+            k = f"{key_prefix}_{f}_{ver}"
             label = C.FIELD_LABELS.get(f, f)
             help_txt = C.FIELD_HELP.get(f)
             if f in C.CATEGORY_OPTIONS:
-                vals[f] = col.selectbox(label, C.CATEGORY_OPTIONS[f],
-                                        key=k, help=help_txt)
+                opts = C.CATEGORY_OPTIONS[f]
+                idx = opts.index(preset[f]) if f in preset and preset[f] in opts else 0
+                vals[f] = col.selectbox(label, opts, index=idx, key=k, help=help_txt)
             else:
                 default, lo, hi, step = C.NUMERIC_INPUT_SPEC[f]
+                val = preset.get(f, default)
                 vals[f] = col.number_input(label, min_value=lo, max_value=hi,
-                                           value=default, step=step, key=k,
+                                           value=val, step=step, key=k,
                                            help=help_txt)
     return pd.DataFrame([vals])[FEATURE_ORDER]
+
+
+def affordability_factors(row: pd.DataFrame) -> list[dict]:
+    """Plain-language 'why' factors from the applicant's ratios vs healthy bands.
+
+    Returns dicts: {label, value, status in good|warn|bad, note}.
+    """
+    from src.features import add_derived_features
+    r = add_derived_features(row).iloc[0]
+    out = []
+
+    def band(v, good_below, warn_below, fmt, note_g, note_b, higher_bad=True):
+        if higher_bad:
+            status = "good" if v <= good_below else ("warn" if v <= warn_below else "bad")
+        else:
+            status = "good" if v >= good_below else ("warn" if v >= warn_below else "bad")
+        return status
+
+    dti = float(r["debt_to_income"]) if pd.notna(r["debt_to_income"]) else 0.0
+    out.append({"label": "Existing debt-to-income",
+                "value": f"{dti:.0%}",
+                "status": band(dti, .15, .35, None, None, None),
+                "note": "Share of income already going to EMIs."})
+
+    eti = float(r["expense_to_income"]) if pd.notna(r["expense_to_income"]) else 0.0
+    out.append({"label": "Expenses-to-income",
+                "value": f"{eti:.0%}",
+                "status": band(eti, .5, .75, None, None, None),
+                "note": "Total monthly outgoings vs income."})
+
+    cs = float(row["credit_score"].iloc[0])
+    out.append({"label": "Credit score",
+                "value": f"{cs:.0f}",
+                "status": "good" if cs >= 720 else ("warn" if cs >= 650 else "bad"),
+                "note": "Higher is safer (300–850)."})
+
+    efm = float(r["emergency_fund_months"]) if pd.notna(r["emergency_fund_months"]) else 0.0
+    out.append({"label": "Emergency fund",
+                "value": f"{efm:.1f} months",
+                "status": "good" if efm >= 6 else ("warn" if efm >= 3 else "bad"),
+                "note": "Months of expenses covered by savings."})
+
+    return out
 
 
 # --- SQLite CRUD ---------------------------------------------------------
