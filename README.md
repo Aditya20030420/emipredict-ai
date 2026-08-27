@@ -12,12 +12,13 @@ features, with MLflow experiment tracking and a Streamlit Cloud web app.
 |---|---|
 | Data loading + cleaning + quality report | ✅ done |
 | Train/val/test split | ✅ done |
-| EDA | ⬜ |
-| Feature engineering | ⬜ |
-| Model development + MLflow | ⬜ |
-| Model selection + registry | ⬜ |
-| Streamlit app | ⬜ |
-| Cloud deployment | ⬜ |
+| EDA | ✅ done |
+| Feature engineering | ✅ done |
+| Model development + MLflow | ✅ done |
+| Model selection + registry | ✅ done |
+| Streamlit app | ✅ done |
+| Cloud deployment | ⬜ (repo ready) |
+| Documentation | ✅ done |
 
 ## Dataset (real, profiled 2026-08-26)
 
@@ -63,6 +64,17 @@ models/     exported best models
 reports/    EDA + quality + model-comparison reports
 notebooks/  EDA / feature-engineering exploration
 ```
+
+## Documentation
+
+| Deliverable | File |
+|---|---|
+| Technical documentation (methodology + architecture) | [docs/TECHNICAL_DOCUMENTATION.md](docs/TECHNICAL_DOCUMENTATION.md) |
+| EDA report (insights + plots) | [reports/eda.md](reports/eda.md) |
+| Model performance & selection (MLflow comparison) | [reports/model_selection.md](reports/model_selection.md) |
+| Business impact assessment | [docs/BUSINESS_IMPACT.md](docs/BUSINESS_IMPACT.md) |
+| Data quality report | [reports/data_quality.md](reports/data_quality.md) |
+| Feature dictionary | [reports/feature_dictionary.md](reports/feature_dictionary.md) |
 
 ## Deploy (Streamlit Community Cloud)
 
