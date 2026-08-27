@@ -102,6 +102,15 @@ a.nav-card .emi-ic {color:#1565C0;}
 .stApp header[data-testid="stHeader"] {background: transparent;}
 .block-container {padding-top: 2.2rem; padding-bottom: 3rem; max-width: 1200px;}
 
+/* Subtle premium background wash (cards stay white and lift off it) */
+.stApp {
+    background:
+        radial-gradient(1100px 520px at 12% -8%, rgba(21,101,192,.07), transparent 60%),
+        radial-gradient(1000px 520px at 100% 0%, rgba(11,42,74,.06), transparent 55%),
+        linear-gradient(180deg, #F7FAFC 0%, #EEF3F8 100%);
+    background-attachment: fixed;
+}
+
 /* Sidebar */
 section[data-testid="stSidebar"] {background: __NAVY__;}
 section[data-testid="stSidebar"] * {color: #E2E8F0 !important;}
