@@ -8,14 +8,18 @@ import streamlit as st
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+import numpy as np  # noqa: E402
 from src import config as C  # noqa: E402
 from src.data_loader import clean  # noqa: E402
-from theme import setup_page, page_header  # noqa: E402
+from theme import setup_page, page_header, callout  # noqa: E402
 
 setup_page("Data Explorer", "📊")
 page_header("Data Explorer",
-            "Explore the EMI dataset with live filters and per-scenario views.",
+            "Browse the data the models learned from — filter it and see the patterns.",
             icon="database")
+
+callout("Use the <b>filters</b> to narrow the data by loan type or eligibility. "
+        "The numbers and charts below update to match your selection.")
 
 
 @st.cache_data
@@ -48,28 +52,55 @@ if f.empty:
     st.warning("No records match the selected filters.")
     st.stop()
 
+st.markdown("##### Overview of the selected records")
 c1, c2, c3 = st.columns(3)
-c1.metric("Records", f"{len(f):,}")
-c2.metric("Mean credit score", f"{f['credit_score'].mean():.0f}")
-c3.metric("Mean max EMI", f"₹{f[C.TARGET_REG].mean():,.0f}")
+c1.metric("Applicants", f"{len(f):,}",
+          help="Number of records matching your filters.")
+c2.metric("Average credit score", f"{f['credit_score'].mean():.0f}",
+          help="Out of 300–850; higher is safer.")
+c3.metric("Average safe EMI", f"₹{f[C.TARGET_REG].mean():,.0f}",
+          help="Mean of the maximum safe monthly EMI.")
 
-tab1, tab2, tab3 = st.tabs(["Distributions", "By scenario", "Raw data"])
+tab1, tab2, tab3 = st.tabs(["Feature distributions", "By loan type",
+                            "Records table"])
+
+# Friendly label <-> column maps for the selector.
+_num_cols = [c for c in C.NUMERIC_FEATURES if c in f] + [C.TARGET_REG]
+_label_of = {c: C.FIELD_LABELS.get(c, c) for c in _num_cols}
+_label_of[C.TARGET_REG] = "Maximum safe EMI (₹)"
 
 with tab1:
-    col = st.selectbox("Numeric column",
-                       [c for c in C.NUMERIC_FEATURES if c in f] + [C.TARGET_REG])
-    st.bar_chart(f[col].value_counts(bins=40, sort=False))
-    st.write("**Eligibility class balance**")
-    st.bar_chart(f[C.TARGET_CLF].value_counts())
+    st.caption("Pick a field to see how its values are spread across the "
+               "selected applicants.")
+    label = st.selectbox("Field to chart",
+                         [_label_of[c] for c in _num_cols])
+    col = next(c for c in _num_cols if _label_of[c] == label)
+
+    series = f[col].dropna()
+    counts, edges = np.histogram(series, bins=30)
+    centers = ((edges[:-1] + edges[1:]) / 2).round(0)
+    hist = pd.DataFrame({"Applicants": counts}, index=centers)
+    hist.index.name = label
+    st.bar_chart(hist, height=280)
+    st.caption(f"Each bar counts how many applicants fall in that range of "
+               f"{label.lower()}.")
+
+    st.markdown("**How many applicants fall into each eligibility class**")
+    bal = f[C.TARGET_CLF].value_counts().rename(
+        {"Not_Eligible": "Not Eligible", "High_Risk": "High Risk"})
+    st.bar_chart(bal, height=240)
 
 with tab2:
+    st.caption("Key numbers broken down by the five loan types.")
     grp = f.groupby("emi_scenario").agg(
-        records=("emi_scenario", "size"),
-        eligible_pct=(C.TARGET_CLF, lambda s: (s == "Eligible").mean() * 100),
-        mean_max_emi=(C.TARGET_REG, "mean"),
-        mean_requested=("requested_amount", "mean"),
-    ).round(0)
+        Applicants=("emi_scenario", "size"),
+        **{"Eligible %": (C.TARGET_CLF, lambda s: round((s == "Eligible").mean() * 100, 1))},
+        **{"Avg safe EMI (₹)": (C.TARGET_REG, lambda s: round(s.mean()))},
+        **{"Avg requested (₹)": ("requested_amount", lambda s: round(s.mean()))},
+    )
+    grp.index.name = "Loan type"
     st.dataframe(grp, use_container_width=True)
 
 with tab3:
+    st.caption("The raw applicant records behind the charts (first 500 shown).")
     st.dataframe(f.head(500), use_container_width=True)
