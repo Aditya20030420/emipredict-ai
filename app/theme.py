@@ -121,8 +121,9 @@ section[data-testid="stSidebar"] {
 section[data-testid="stSidebar"] [data-testid="stSidebarContent"] {
     display: flex; flex-direction: column; height: 100%;
 }
+/* Brand block sits at the TOP, above the navigation */
 section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
-    margin-top: auto; padding-bottom: 22px;
+    order: -1; padding-top: 2px; padding-bottom: 6px;
 }
 /* Collapse button: aligned to the sidebar grid, subtle */
 [data-testid="stSidebarCollapseButton"] {margin: 6px 10px 0 0;}
@@ -134,7 +135,7 @@ section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
     background: rgba(255,255,255,.08); color: #E2E8F0;
 }
 /* Navigation links — one grid, consistent spacing */
-[data-testid="stSidebarNav"] {padding-top: 0; margin-top: -1.5rem;}
+[data-testid="stSidebarNav"] {padding-top: 2px; margin-top: 0;}
 [data-testid="stSidebarNav"] ul {gap: 3px; padding: 0;}
 [data-testid="stSidebarNav"] li > a {
     padding: 7px 12px; margin: 1px 12px; border-radius: 8px;
@@ -299,9 +300,9 @@ def setup_page(title: str, icon_emoji: str = "💳"):
 def sidebar_brand():
     st.sidebar.markdown(
         f"""
-        <div style="display:flex;align-items:center;gap:11px;padding:14px 0 4px 0;
-                    margin:8px 0 0 0;
-                    border-top:1px solid rgba(255,255,255,.12);">
+        <div style="display:flex;align-items:center;gap:11px;padding:2px 0 14px 0;
+                    margin:0 0 6px 0;
+                    border-bottom:1px solid rgba(255,255,255,.12);">
           <span class="brand-logo" style="color:#4F9BF0;display:flex;">{ICONS['shield']}</span>
           <div style="line-height:1.2;">
             <div style="font-weight:700;font-size:1.1rem;color:#fff;letter-spacing:-.01em;">EMIPredict AI</div>
