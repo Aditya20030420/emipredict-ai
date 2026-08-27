@@ -41,12 +41,19 @@ st.caption(f"Showing {len(df):,} records "
 
 # --- Filters (on the page) ----------------------------------------------
 with st.container(border=True):
-    st.markdown("**Filters**")
-    fc1, fc2 = st.columns(2)
-    scen = fc1.multiselect("EMI scenario", C.CATEGORY_OPTIONS["emi_scenario"],
-                           default=C.CATEGORY_OPTIONS["emi_scenario"])
-    elig = fc2.multiselect("Eligibility", C.CLF_CLASSES, default=C.CLF_CLASSES)
+    st.markdown("**Filters** — tap a pill to include or exclude it.")
+    fc1, fc2 = st.columns([3, 2])
+    with fc1:
+        scen = st.pills("Loan type", C.CATEGORY_OPTIONS["emi_scenario"],
+                        selection_mode="multi",
+                        default=C.CATEGORY_OPTIONS["emi_scenario"])
+    with fc2:
+        elig = st.pills("Eligibility", C.CLF_CLASSES, selection_mode="multi",
+                        default=C.CLF_CLASSES,
+                        format_func=lambda x: x.replace("_", " "))
 
+scen = scen or C.CATEGORY_OPTIONS["emi_scenario"]
+elig = elig or C.CLF_CLASSES
 f = df[df["emi_scenario"].isin(scen) & df[C.TARGET_CLF].isin(elig)]
 if f.empty:
     st.warning("No records match the selected filters.")
