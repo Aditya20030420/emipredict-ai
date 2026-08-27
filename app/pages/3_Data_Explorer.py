@@ -77,13 +77,17 @@ with tab1:
     col = next(c for c in _num_cols if _label_of[c] == label)
 
     series = f[col].dropna()
-    counts, edges = np.histogram(series, bins=30)
+    counts, edges = np.histogram(series, bins=60)
     centers = ((edges[:-1] + edges[1:]) / 2).round(0)
-    hist = pd.DataFrame({"Applicants": counts}, index=centers)
-    hist.index.name = label
-    st.bar_chart(hist, height=280)
-    st.caption(f"Each bar counts how many applicants fall in that range of "
-               f"{label.lower()}.")
+    # Smooth the counts (moving average) into a clean density-style curve,
+    # so genuinely spiky/clustered fields still read as a shape.
+    k = 7
+    smooth = np.convolve(counts, np.ones(k) / k, mode="same")
+    dens = pd.DataFrame({"Applicants": smooth}, index=centers)
+    dens.index.name = label
+    st.area_chart(dens, height=280, color="#1565C0")
+    st.caption(f"Smoothed distribution — the curve is higher where more "
+               f"applicants share that {label.lower()}.")
 
     st.markdown("**How many applicants fall into each eligibility class**")
     bal = f[C.TARGET_CLF].value_counts().rename(
