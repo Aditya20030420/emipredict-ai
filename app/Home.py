@@ -16,7 +16,7 @@ st.markdown(
     <div style="border:1px solid {BORDER};border-radius:14px;padding:22px 26px;
                 background:#F8FAFC;margin-bottom:20px;">
       <div style="font-size:1.1rem;font-weight:600;color:{NAVY};margin-bottom:8px;">
-        Why EMIPredict AI?
+        Overview
       </div>
       <div style="color:{INK};font-size:.95rem;line-height:1.6;">
         <b>EMIPredict AI tells lenders, in seconds, whether an applicant can handle
