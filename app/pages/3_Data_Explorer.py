@@ -35,14 +35,18 @@ if df.empty:
 st.caption(f"Showing {len(df):,} records "
            f"({'full dataset' if len(df) > 50_000 else 'sample'}).")
 
-# Filters
-with st.sidebar:
-    st.header("Filters")
-    scen = st.multiselect("EMI scenario", C.CATEGORY_OPTIONS["emi_scenario"],
-                          default=C.CATEGORY_OPTIONS["emi_scenario"])
-    elig = st.multiselect("Eligibility", C.CLF_CLASSES, default=C.CLF_CLASSES)
+# --- Filters (on the page) ----------------------------------------------
+with st.container(border=True):
+    st.markdown("**Filters**")
+    fc1, fc2 = st.columns(2)
+    scen = fc1.multiselect("EMI scenario", C.CATEGORY_OPTIONS["emi_scenario"],
+                           default=C.CATEGORY_OPTIONS["emi_scenario"])
+    elig = fc2.multiselect("Eligibility", C.CLF_CLASSES, default=C.CLF_CLASSES)
 
 f = df[df["emi_scenario"].isin(scen) & df[C.TARGET_CLF].isin(elig)]
+if f.empty:
+    st.warning("No records match the selected filters.")
+    st.stop()
 
 c1, c2, c3 = st.columns(3)
 c1.metric("Records", f"{len(f):,}")
