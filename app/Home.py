@@ -8,7 +8,7 @@ from utils import load_models
 setup_page("Home", "💳")
 page_header("EMIPredict AI",
             "AI-powered loan risk assessment for faster, fairer lending decisions.",
-            icon="shield")
+            icon="logo")
 
 # --- What is this for? ---------------------------------------------------
 st.markdown(

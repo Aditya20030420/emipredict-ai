@@ -54,6 +54,23 @@ ICONS = {
                  '<path class="ic-pulse" d="M12 8h.01"/>'),
 }
 
+# Brand logo (combined mark: shield + ascending bars + rising arrow).
+# Multi-colour, fixed fills — for use on dark surfaces (sidebar, hero chip).
+LOGO_SVG = (
+    '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" '
+    'viewBox="0 0 24 24">'
+    '<path d="M12 2 20 5 V11 C20 16 12 22 12 22 C12 22 4 16 4 11 V5 Z" fill="#4F9BF0"/>'
+    '<rect x="8" y="13" width="1.7" height="3.2" rx="0.6" fill="#fff" opacity="0.6"/>'
+    '<rect x="10.6" y="11.4" width="1.7" height="4.8" rx="0.6" fill="#fff" opacity="0.85"/>'
+    '<rect x="13.2" y="9.6" width="1.7" height="6.6" rx="0.6" fill="#fff"/>'
+    '<path d="M7.6 13.2 10.8 10.6 14.6 7.4" fill="none" stroke="#fff" '
+    'stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>'
+    '<path d="M14.6 7.4 12.7 7.7 M14.6 7.4 14.4 9.3" fill="none" stroke="#fff" '
+    'stroke-width="1.2" stroke-linecap="round"/>'
+    '</svg>'
+)
+ICONS["logo"] = LOGO_SVG
+
 _CSS = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
@@ -343,7 +360,7 @@ def sidebar_brand():
         <div style="display:flex;align-items:center;gap:11px;padding:2px 0 14px 0;
                     margin:0 0 6px 0;
                     border-bottom:1px solid rgba(255,255,255,.12);">
-          <span class="brand-logo" style="color:#4F9BF0;display:flex;">{ICONS['shield']}</span>
+          <span class="brand-logo" style="display:flex;">{ICONS['logo']}</span>
           <div style="line-height:1.2;">
             <div style="font-weight:700;font-size:1.1rem;color:#fff;letter-spacing:-.01em;">EMIPredict AI</div>
             <div style="font-size:.7rem;color:#8B9CB3;font-weight:500;">Risk Assessment Platform</div>
