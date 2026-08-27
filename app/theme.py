@@ -374,7 +374,7 @@ def sidebar_brand():
         <div style="display:flex;align-items:center;gap:11px;padding:2px 0 14px 0;
                     margin:0 0 6px 0;
                     border-bottom:1px solid rgba(255,255,255,.12);">
-          <span class="brand-logo" style="display:flex;">{_img_tag("logo_white.png", 34)}</span>
+          <span class="brand-logo" style="display:flex;">{_img_tag("brand_logo_chip.png", 42)}</span>
           <div style="line-height:1.2;">
             <div style="font-weight:700;font-size:1.1rem;color:#fff;letter-spacing:-.01em;">EMIPredict AI</div>
             <div style="font-size:.7rem;color:#8B9CB3;font-weight:500;">Risk Assessment Platform</div>
@@ -430,7 +430,7 @@ def factor_rows(factors: list):
 
 def page_header(title: str, subtitle: str, icon: str = "shield"):
     if icon == "logo":
-        icon_html = _img_tag("logo_navy.png", 36)
+        icon_html = _img_tag("brand_logo.png", 40)
         chip = 'style="background:#fff;"'
     else:
         icon_html = ICONS.get(icon, ICONS["shield"])
