@@ -199,6 +199,18 @@ section[data-testid="stSidebar"] [data-baseweb="tag"] * {color:#fff !important;}
 
 /* Tables */
 [data-testid="stDataFrame"] {border-radius: 10px; border: 1px solid __BORDER__;}
+
+/* Multiselect: let chips wrap & show full text (no inner scrollbar/ellipsis) */
+[data-testid="stMultiSelect"] div[data-baseweb="select"] > div:first-child {
+    flex-wrap: wrap; max-height: none; overflow: visible; height: auto;
+}
+[data-testid="stMultiSelect"] [data-baseweb="tag"] {
+    max-width: none !important; border-radius: 6px;
+}
+[data-testid="stMultiSelect"] [data-baseweb="tag"] span {
+    max-width: none !important; overflow: visible !important;
+    text-overflow: clip !important; white-space: normal !important;
+}
 </style>
 """
 for _k, _v in {"NAVY": NAVY, "PRIMARY": PRIMARY, "INK": INK, "MUTED": MUTED,
