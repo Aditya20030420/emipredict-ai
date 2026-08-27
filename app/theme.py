@@ -111,33 +111,48 @@ a.nav-card .emi-ic {color:#1565C0;}
     background-attachment: fixed;
 }
 
-/* Sidebar */
+/* Sidebar — compact, production-ready */
 section[data-testid="stSidebar"] {
     background: linear-gradient(180deg, #0B2A4A 0%, #0E3560 100%);
     border-right: 1px solid rgba(255,255,255,.06);
+    width: 260px !important; min-width: 260px !important;
 }
-/* Pin brand block to the bottom as a footer */
+/* Flex column so branding anchors to the bottom */
 section[data-testid="stSidebar"] [data-testid="stSidebarContent"] {
     display: flex; flex-direction: column; height: 100%;
 }
 section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
-    margin-top: auto;
+    margin-top: auto; padding-bottom: 14px;
 }
-/* Advanced nav links */
-[data-testid="stSidebarNav"] {padding-top: .4rem;}
-[data-testid="stSidebarNav"] ul {gap: 2px;}
+/* Collapse button: aligned to the sidebar grid, subtle */
+[data-testid="stSidebarCollapseButton"] {margin: 6px 10px 0 0;}
+[data-testid="stSidebarCollapseButton"] button {
+    color: #94A3B8; border-radius: 8px; padding: 4px;
+    transition: background .18s ease, color .18s ease;
+}
+[data-testid="stSidebarCollapseButton"] button:hover {
+    background: rgba(255,255,255,.08); color: #E2E8F0;
+}
+/* Navigation links — one grid, consistent spacing */
+[data-testid="stSidebarNav"] {padding-top: .35rem;}
+[data-testid="stSidebarNav"] ul {gap: 3px; padding: 0;}
 [data-testid="stSidebarNav"] li > a {
-    padding: 10px 14px; margin: 2px 10px; border-radius: 10px;
-    font-weight: 500; border-left: 3px solid transparent;
+    padding: 7px 12px; margin: 1px 12px; border-radius: 8px;
+    font-size: 14.5px; font-weight: 500; line-height: 1.3;
+    border-left: 3px solid transparent;
     transition: background .18s ease, transform .18s ease, border-color .18s ease;
 }
+[data-testid="stSidebarNav"] li > a span {font-size: 14.5px;}
 [data-testid="stSidebarNav"] li > a:hover {
-    background: rgba(255,255,255,.08); transform: translateX(3px);
+    background: rgba(255,255,255,.08); transform: translateX(2px);
 }
 [data-testid="stSidebarNav"] li > a[aria-current="page"] {
-    background: rgba(79,155,240,.22);
+    background: rgba(79,155,240,.20);
     border-left: 3px solid #4F9BF0; font-weight: 600;
 }
+[data-testid="stSidebarNav"] li > a[aria-current="page"] span {font-weight: 600;}
+/* Brand logo slightly more prominent */
+section[data-testid="stSidebar"] .brand-logo svg {width: 30px !important; height: 30px !important;}
 /* Light text for sidebar labels/nav, but NOT inside white widgets */
 section[data-testid="stSidebar"] label,
 section[data-testid="stSidebar"] h1, section[data-testid="stSidebar"] h2,
@@ -264,12 +279,13 @@ def setup_page(title: str, icon_emoji: str = "💳"):
 def sidebar_brand():
     st.sidebar.markdown(
         f"""
-        <div style="display:flex;align-items:center;gap:10px;padding:14px 0 6px 0;
-                    border-top:1px solid rgba(255,255,255,.12);margin-top:8px;">
-          <span style="color:#4F9BF0;">{ICONS['shield']}</span>
-          <div style="line-height:1.15;">
-            <div style="font-weight:700;font-size:1.05rem;color:#fff;">EMIPredict AI</div>
-            <div style="font-size:.72rem;color:#94A3B8;">Risk Assessment Platform</div>
+        <div style="display:flex;align-items:center;gap:11px;padding:14px 0 4px 0;
+                    margin:8px 0 0 0;
+                    border-top:1px solid rgba(255,255,255,.12);">
+          <span class="brand-logo" style="color:#4F9BF0;display:flex;">{ICONS['shield']}</span>
+          <div style="line-height:1.2;">
+            <div style="font-weight:700;font-size:1.1rem;color:#fff;letter-spacing:-.01em;">EMIPredict AI</div>
+            <div style="font-size:.7rem;color:#8B9CB3;font-weight:500;">Risk Assessment Platform</div>
           </div>
         </div>
         """,
