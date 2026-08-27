@@ -82,24 +82,27 @@ st.write("")
 # --- Feature cards -------------------------------------------------------
 CARDS = [
     ("check", "Predict Eligibility", "Classify an applicant as Eligible, "
-     "High-Risk, or Not Eligible, with calibrated class probabilities."),
+     "High-Risk, or Not Eligible, with calibrated class probabilities.",
+     "#1565C0", "#E7F0FE"),
     ("rupee", "Predict Max EMI", "Estimate the maximum safe monthly EMI (₹) "
-     "for an applicant's financial profile."),
+     "for an applicant's financial profile.", "#0D9488", "#D8F3EE"),
     ("database", "Data Explorer", "Explore the 404K-record dataset with live "
-     "filters, distributions, and per-scenario breakdowns."),
+     "filters, distributions, and per-scenario breakdowns.", "#7C3AED", "#EFE7FD"),
     ("chart", "Model Dashboard", "Compare all trained models and review "
-     "MLflow-tracked metrics and tuning results."),
+     "MLflow-tracked metrics and tuning results.", "#D97706", "#FDEFD8"),
 ]
 cols = st.columns(2)
-for i, (icon, title, desc) in enumerate(CARDS):
+for i, (icon, title, desc, fg, bg) in enumerate(CARDS):
     with cols[i % 2]:
         st.markdown(
             f"""
             <div style="border:1px solid {BORDER};border-radius:14px;padding:20px 22px;
-                        margin-bottom:16px;background:#fff;min-height:118px;
-                        box-shadow:0 1px 2px rgba(15,23,42,.04);">
-              <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
-                <span style="color:{PRIMARY};">{ICONS[icon]}</span>
+                        margin-bottom:16px;background:#fff;min-height:124px;
+                        box-shadow:0 2px 8px rgba(15,23,42,.05);">
+              <div style="display:flex;align-items:center;gap:13px;margin-bottom:10px;">
+                <span style="display:flex;align-items:center;justify-content:center;
+                             width:42px;height:42px;border-radius:11px;
+                             background:{bg};color:{fg};">{ICONS[icon]}</span>
                 <span style="font-size:1.05rem;font-weight:600;color:{NAVY};">{title}</span>
               </div>
               <div style="color:{MUTED};font-size:.9rem;line-height:1.5;">{desc}</div>

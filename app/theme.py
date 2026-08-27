@@ -177,9 +177,11 @@ section[data-testid="stSidebar"] [data-baseweb="tag"] * {color:#fff !important;}
 /* Page hero header */
 .app-hero {
     display: flex; align-items: center; gap: 16px;
-    padding: 22px 26px; margin-bottom: 22px; border-radius: 14px;
-    background: linear-gradient(135deg, __NAVY__ 0%, __PRIMARY__ 100%);
-    color: #fff; box-shadow: 0 6px 20px rgba(11,42,74,.18);
+    padding: 24px 28px; margin-bottom: 22px; border-radius: 16px;
+    background:
+        radial-gradient(520px 180px at 88% -30%, rgba(56,189,248,.35), transparent 60%),
+        linear-gradient(120deg, __NAVY__ 0%, __PRIMARY__ 52%, #0E7490 100%);
+    color: #fff; box-shadow: 0 10px 30px rgba(13,80,140,.28);
 }
 .app-hero .hero-icon {
     display: flex; align-items: center; justify-content: center;
@@ -197,11 +199,29 @@ section[data-testid="stSidebar"] [data-baseweb="tag"] * {color:#fff !important;}
 .stButton > button:hover, .stFormSubmitButton > button:hover {
     transform: translateY(-1px); box-shadow: 0 4px 12px rgba(21,101,192,.25);
 }
+/* Gradient primary CTAs */
+button[kind="primary"], button[kind="primaryFormSubmit"] {
+    background: linear-gradient(135deg, #1565C0 0%, #0E7490 100%) !important;
+    border: none !important; color: #fff !important;
+    box-shadow: 0 4px 14px rgba(14,116,144,.28) !important;
+}
+button[kind="primary"]:hover, button[kind="primaryFormSubmit"]:hover {
+    filter: brightness(1.06);
+}
 
 /* Metric cards */
 [data-testid="stMetric"] {
     background: __CARD__; border: 1px solid __BORDER__; border-radius: 12px;
-    padding: 16px 18px; box-shadow: 0 1px 2px rgba(15,23,42,.04);
+    padding: 18px 18px 16px; box-shadow: 0 2px 8px rgba(15,23,42,.05);
+    position: relative; overflow: hidden;
+}
+[data-testid="stMetric"]::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, #1565C0, #0E7490);
+}
+[data-testid="stMetric"]:hover {
+    box-shadow: 0 6px 18px rgba(15,23,42,.10); transform: translateY(-1px);
+    transition: all .18s ease;
 }
 [data-testid="stMetricLabel"] {color: __MUTED__; font-weight: 500;}
 [data-testid="stMetricValue"] {color: __INK__; font-weight: 600;}
