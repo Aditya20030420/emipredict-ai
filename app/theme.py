@@ -6,6 +6,8 @@ contrast, dashboard density. Semantic colors for the 3 risk classes. SVG icons
 """
 from __future__ import annotations
 
+from pathlib import Path
+
 import streamlit as st
 
 # --- Brand palette -------------------------------------------------------
@@ -302,9 +304,13 @@ for _k, _v in {"NAVY": NAVY, "PRIMARY": PRIMARY, "INK": INK, "MUTED": MUTED,
 STATUS_COLORS = {"good": "#15803D", "warn": "#B45309", "bad": "#B91C1C"}
 
 
+_FAVICON = Path(__file__).resolve().parent / "assets" / "favicon.png"
+
+
 def setup_page(title: str, icon_emoji: str = "💳"):
+    icon = str(_FAVICON) if _FAVICON.exists() else icon_emoji
     st.set_page_config(page_title=f"{title} · EMIPredict AI",
-                       page_icon=icon_emoji, layout="wide")
+                       page_icon=icon, layout="wide")
     st.markdown(_CSS, unsafe_allow_html=True)
     sidebar_brand()
     sidebar_footer()
