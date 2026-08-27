@@ -7,7 +7,7 @@ from utils import load_models
 
 setup_page("Home", "💳")
 page_header("EMIPredict AI",
-            "Intelligent Financial Risk Assessment Platform — FinTech & Banking",
+            "AI-powered loan risk assessment for faster, fairer lending decisions.",
             icon="shield")
 
 # --- What is this for? ---------------------------------------------------
@@ -19,16 +19,16 @@ st.markdown(
         What is this for?
       </div>
       <div style="color:{INK};font-size:.95rem;line-height:1.6;">
-        <b>EMIPredict AI helps lenders decide whether to approve a loan and how
-        much a person can safely repay each month.</b> Many borrowers struggle
-        with EMIs because affordability isn't assessed properly. This platform
-        uses machine learning trained on 400,000 financial profiles to give an
-        instant, data-driven risk assessment — replacing slow, manual underwriting.
+        <b>EMIPredict AI tells lenders, in seconds, whether an applicant can handle
+        a loan — and how much they can safely repay each month.</b> Too many
+        borrowers default because affordability is judged slowly and by hand.
+        Trained on 400,000 real financial profiles, the platform turns that
+        guesswork into an instant, consistent, data-driven decision.
       </div>
       <div style="color:{MUTED};font-size:.88rem;line-height:1.6;margin-top:12px;">
-        <b>Who uses it:</b> loan officers and underwriters for quick approval
-        decisions · banks &amp; credit agencies for risk-based pricing and
-        default prevention · FinTech apps for instant eligibility checks.
+        <b>Built for:</b> loan officers who need fast approvals · banks &amp; credit
+        agencies pricing risk and preventing defaults · FinTech apps running instant
+        eligibility checks.
       </div>
     </div>
     """,
@@ -81,15 +81,16 @@ st.write("")
 
 # --- Feature cards -------------------------------------------------------
 CARDS = [
-    ("check", "Predict Eligibility", "Classify an applicant as Eligible, "
-     "High-Risk, or Not Eligible, with calibrated class probabilities.",
-     "#1565C0", "#E7F0FE"),
-    ("rupee", "Predict Max EMI", "Estimate the maximum safe monthly EMI (₹) "
-     "for an applicant's financial profile.", "#0D9488", "#D8F3EE"),
-    ("database", "Data Explorer", "Explore the 404K-record dataset with live "
-     "filters, distributions, and per-scenario breakdowns.", "#7C3AED", "#EFE7FD"),
-    ("chart", "Model Dashboard", "Compare all trained models and review "
-     "MLflow-tracked metrics and tuning results.", "#D97706", "#FDEFD8"),
+    ("check", "Predict Eligibility", "Instantly classify an applicant as "
+     "Eligible, High-Risk, or Not Eligible — with confidence scores and the "
+     "reasons behind the decision.", "#1565C0", "#E7F0FE"),
+    ("rupee", "Predict Max EMI", "See the highest monthly EMI an applicant can "
+     "comfortably afford, and how it compares to the loan requested.",
+     "#0D9488", "#D8F3EE"),
+    ("database", "Data Explorer", "Filter and visualise the 404K-profile "
+     "dataset by loan type and eligibility.", "#7C3AED", "#EFE7FD"),
+    ("chart", "Model Dashboard", "Compare every model and review the metrics "
+     "behind the chosen champions.", "#D97706", "#FDEFD8"),
 ]
 cols = st.columns(2)
 for i, (icon, title, desc, fg, bg) in enumerate(CARDS):
@@ -114,7 +115,7 @@ for i, (icon, title, desc, fg, bg) in enumerate(CARDS):
 # --- Model status --------------------------------------------------------
 try:
     load_models()
-    st.success("Champion models loaded (XGBoost classifier + regressor).")
+    st.success("Ready — champion models loaded (XGBoost classifier + regressor).")
 except Exception as e:  # pragma: no cover
     st.error(f"Could not load models: {e}")
 
