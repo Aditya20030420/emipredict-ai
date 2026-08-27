@@ -72,8 +72,12 @@ _label_of[C.TARGET_REG] = "Maximum safe EMI (₹)"
 with tab1:
     st.caption("Pick a field to see how its values are spread across the "
                "selected applicants.")
-    label = st.selectbox("Field to chart",
-                         [_label_of[c] for c in _num_cols])
+    _labels = [_label_of[c] for c in _num_cols]
+    # Default to a continuous field with a natural smooth distribution.
+    _default = next((_label_of[c] for c in ("monthly_salary", "credit_score",
+                     C.TARGET_REG) if c in _num_cols), _labels[0])
+    label = st.selectbox("Field to chart", _labels,
+                         index=_labels.index(_default))
     col = next(c for c in _num_cols if _label_of[c] == label)
 
     series = f[col].dropna()
