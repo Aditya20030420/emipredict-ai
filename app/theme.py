@@ -122,7 +122,7 @@ section[data-testid="stSidebar"] [data-testid="stSidebarContent"] {
     display: flex; flex-direction: column; height: 100%;
 }
 section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
-    margin-top: auto; padding-bottom: 14px;
+    margin-top: auto; padding-bottom: 22px;
 }
 /* Collapse button: aligned to the sidebar grid, subtle */
 [data-testid="stSidebarCollapseButton"] {margin: 6px 10px 0 0;}
@@ -134,7 +134,7 @@ section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
     background: rgba(255,255,255,.08); color: #E2E8F0;
 }
 /* Navigation links — one grid, consistent spacing */
-[data-testid="stSidebarNav"] {padding-top: .35rem;}
+[data-testid="stSidebarNav"] {padding-top: 0; margin-top: -1.5rem;}
 [data-testid="stSidebarNav"] ul {gap: 3px; padding: 0;}
 [data-testid="stSidebarNav"] li > a {
     padding: 7px 12px; margin: 1px 12px; border-radius: 8px;
