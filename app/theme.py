@@ -194,8 +194,18 @@ section[data-testid="stSidebar"] [data-baseweb="tag"] * {color:#fff !important;}
 .result-card .rc-value {font-size: 2rem; font-weight: 700; margin-top: 2px;}
 
 /* Tabs */
-.stTabs [data-baseweb="tab-list"] {gap: 4px;}
-.stTabs [data-baseweb="tab"] {border-radius: 8px 8px 0 0; font-weight: 500;}
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px; border-bottom: 1px solid __BORDER__; margin-bottom: 4px;
+}
+.stTabs [data-baseweb="tab"] {
+    padding: 8px 18px; border-radius: 8px 8px 0 0; font-weight: 500;
+    color: __MUTED__; background: #EEF3F8;
+}
+.stTabs [data-baseweb="tab"]:hover {background: #E3EBF4; color: __INK__;}
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
+    background: #fff; color: __PRIMARY__; font-weight: 600;
+    border: 1px solid __BORDER__; border-bottom: 2px solid __PRIMARY__;
+}
 
 /* Tables */
 [data-testid="stDataFrame"] {border-radius: 10px; border: 1px solid __BORDER__;}
