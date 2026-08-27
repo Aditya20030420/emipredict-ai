@@ -264,7 +264,7 @@ def setup_page(title: str, icon_emoji: str = "💳"):
 def sidebar_brand():
     st.sidebar.markdown(
         f"""
-        <div style="display:flex;align-items:center;gap:10px;padding:14px 4px 6px;
+        <div style="display:flex;align-items:center;gap:10px;padding:14px 0 6px 0;
                     border-top:1px solid rgba(255,255,255,.12);margin-top:8px;">
           <span style="color:#4F9BF0;">{ICONS['shield']}</span>
           <div style="line-height:1.15;">
