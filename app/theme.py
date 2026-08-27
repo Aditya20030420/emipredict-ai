@@ -113,9 +113,28 @@ a.nav-card .emi-ic {color:#1565C0;}
 
 /* Sidebar */
 section[data-testid="stSidebar"] {background: __NAVY__;}
-section[data-testid="stSidebar"] * {color: #E2E8F0 !important;}
 section[data-testid="stSidebar"] a {border-radius: 8px;}
 section[data-testid="stSidebar"] a:hover {background: rgba(255,255,255,.08);}
+/* Light text for sidebar labels/nav, but NOT inside white widgets */
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] h1, section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3, section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] span,
+section[data-testid="stSidebar"] [data-testid="stWidgetLabel"] * {
+    color: #E2E8F0 !important;
+}
+/* Keep multiselect controls readable: dark text on their white surface */
+section[data-testid="stSidebar"] [data-baseweb="select"] {
+    background:#fff; border-radius:8px;
+}
+section[data-testid="stSidebar"] [data-baseweb="select"] * {color:#0F172A !important;}
+/* Selected chips: brand blue with white text */
+section[data-testid="stSidebar"] [data-baseweb="tag"] {
+    background:__PRIMARY__ !important; border-radius:6px;
+}
+section[data-testid="stSidebar"] [data-baseweb="tag"] * {color:#fff !important;}
+/* Dropdown popover text stays dark */
+[data-baseweb="popover"] [role="option"] {color:#0F172A !important;}
 
 /* Page hero header */
 .app-hero {
