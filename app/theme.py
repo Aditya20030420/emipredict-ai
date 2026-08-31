@@ -317,6 +317,13 @@ button[kind="primary"]:hover, button[kind="primaryFormSubmit"]:hover {
 /* Tables */
 [data-testid="stDataFrame"] {border-radius: 10px; border: 1px solid __BORDER__;}
 
+/* Pills: make the selected (on) state a clear solid fill vs plain (off) */
+button[kind="pillsActive"] {
+    background: #1565C0 !important; color: #fff !important;
+    border-color: #1565C0 !important; font-weight: 600;
+}
+button[kind="pills"] {color: #475569 !important;}
+
 /* Multiselect: let chips wrap & show full text (no inner scrollbar/ellipsis) */
 [data-testid="stMultiSelect"] div[data-baseweb="select"] > div:first-child {
     flex-wrap: wrap; max-height: none; overflow: visible; height: auto;
