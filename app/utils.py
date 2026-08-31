@@ -23,7 +23,7 @@ FEATURE_ORDER = (
 
 
 # --- Models --------------------------------------------------------------
-@st.cache_resource
+@st.cache_resource(show_spinner="Loading the prediction models…")
 def load_models():
     clf = joblib.load(C.MODELS_DIR / "clf_champion.pkl")
     reg = joblib.load(C.MODELS_DIR / "reg_champion.pkl")

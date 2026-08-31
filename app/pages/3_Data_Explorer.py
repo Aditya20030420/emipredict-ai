@@ -22,7 +22,7 @@ callout("Use the <b>filters</b> to narrow the data by loan type or eligibility. 
         "The numbers and charts below update to match your selection.")
 
 
-@st.cache_data
+@st.cache_data(show_spinner="Loading the dataset — this takes a few seconds the first time…")
 def load_sample() -> pd.DataFrame:
     # Prefer the full raw data locally; fall back to the committed sample.
     for path in (C.DATA_RAW, ROOT / "data" / "sample.csv"):
