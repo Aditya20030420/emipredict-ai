@@ -170,8 +170,11 @@ section[data-testid="stSidebar"] .sidebar-footer {
 section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
     order: -1; padding-top: 2px; padding-bottom: 6px;
 }
-/* Collapse button: aligned to the sidebar grid, subtle */
-[data-testid="stSidebarCollapseButton"] {margin: 6px 10px 0 0;}
+/* Collapse button: pinned to the top-right corner (out of the flow so it
+   doesn't push the nav down or leave a gap) */
+[data-testid="stSidebarCollapseButton"] {
+    position: absolute; top: 10px; right: 10px; margin: 0; z-index: 5;
+}
 [data-testid="stSidebarCollapseButton"] button {
     color: #94A3B8; border-radius: 8px; padding: 4px;
     transition: background .18s ease, color .18s ease;
