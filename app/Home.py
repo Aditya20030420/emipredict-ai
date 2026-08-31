@@ -81,16 +81,14 @@ st.write("")
 
 # --- Feature cards -------------------------------------------------------
 CARDS = [
-    ("check", "Predict Eligibility", "Instantly classify an applicant as "
-     "Eligible, High-Risk, or Not Eligible — with confidence scores and the "
+    ("check", "Predict Eligibility", "Classify an applicant and see the "
      "reasons behind the decision.", "#1565C0", "#E7F0FE"),
-    ("rupee", "Predict Max EMI", "See the highest monthly EMI an applicant can "
-     "comfortably afford, and how it compares to the loan requested.",
-     "#0D9488", "#D8F3EE"),
+    ("rupee", "Predict Max EMI", "See the highest EMI an applicant can afford "
+     "vs the loan requested.", "#0D9488", "#D8F3EE"),
     ("database", "Data Explorer", "Filter and visualise the 404K-profile "
-     "dataset by loan type and eligibility.", "#7C3AED", "#EFE7FD"),
-    ("chart", "Model Dashboard", "Compare every model and review the metrics "
-     "behind the chosen champions.", "#D97706", "#FDEFD8"),
+     "dataset.", "#7C3AED", "#EFE7FD"),
+    ("chart", "Model Dashboard", "Compare every model and its key "
+     "metrics.", "#D97706", "#FDEFD8"),
 ]
 cols = st.columns(2)
 for i, (icon, title, desc, fg, bg) in enumerate(CARDS):
@@ -98,7 +96,8 @@ for i, (icon, title, desc, fg, bg) in enumerate(CARDS):
         st.markdown(
             f"""
             <div style="border:1px solid {BORDER};border-radius:14px;padding:20px 22px;
-                        margin-bottom:16px;background:#fff;min-height:124px;
+                        margin-bottom:16px;background:#fff;height:132px;
+                        box-sizing:border-box;overflow:hidden;
                         box-shadow:0 2px 8px rgba(15,23,42,.05);">
               <div style="display:flex;align-items:center;gap:13px;margin-bottom:10px;">
                 <span style="display:flex;align-items:center;justify-content:center;
