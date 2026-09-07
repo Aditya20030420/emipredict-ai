@@ -4,6 +4,8 @@ Dual-ML FinTech platform that predicts **EMI eligibility** (3-class classificati
 and **maximum safe monthly EMI** (regression) from 22+ financial/demographic
 features, with MLflow experiment tracking and a Streamlit Cloud web app.
 
+**🔗 Live app: https://emipredict-ai-demo.streamlit.app/**
+
 > Full build plan: [PLAN.md](PLAN.md)
 
 ## Status
@@ -17,7 +19,7 @@ features, with MLflow experiment tracking and a Streamlit Cloud web app.
 | Model development + MLflow | ✅ done |
 | Model selection + registry | ✅ done |
 | Streamlit app | ✅ done |
-| Cloud deployment | ⬜ (repo ready) |
+| Cloud deployment | ✅ [live](https://emipredict-ai-demo.streamlit.app/) |
 | Documentation | ✅ done |
 
 ## Dataset (real, profiled 2026-08-26)
