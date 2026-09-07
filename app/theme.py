@@ -153,8 +153,15 @@ a.nav-card .emi-ic {color:#1565C0;}
 section[data-testid="stSidebar"] {
     background: linear-gradient(180deg, #0B2A4A 0%, #0E3560 100%);
     border-right: 1px solid rgba(255,255,255,.06);
-    width: 260px !important; min-width: 260px !important;
     position: relative;
+}
+/* Fixed width only when expanded; collapse to 0 so content reclaims the space
+   and re-centers (otherwise the translated-off sidebar keeps its box in flow) */
+section[data-testid="stSidebar"][aria-expanded="true"] {
+    width: 260px !important; min-width: 260px !important;
+}
+section[data-testid="stSidebar"][aria-expanded="false"] {
+    width: 0 !important; min-width: 0 !important;
 }
 /* Flex column so brand + nav stack from the top */
 section[data-testid="stSidebar"] [data-testid="stSidebarContent"] {
