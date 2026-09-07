@@ -143,11 +143,20 @@ a.nav-card .emi-ic {color:#1565C0;}
 /* Subtle premium background wash (cards stay white and lift off it) */
 .stApp {
     background:
-        radial-gradient(1100px 520px at 12% -8%, rgba(21,101,192,.07), transparent 60%),
-        radial-gradient(1000px 520px at 100% 0%, rgba(11,42,74,.06), transparent 55%),
+        radial-gradient(650px 480px, rgba(21,101,192,.12), transparent 70%),
+        radial-gradient(650px 480px, rgba(13,148,136,.10), transparent 70%),
         linear-gradient(180deg, #F7FAFC 0%, #EEF3F8 100%);
-    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 950px 760px, 950px 760px, 100% 100%;
+    background-position: 8% 6%, 92% 94%, 0 0;
+    animation: emi-bg 26s ease-in-out infinite alternate;
 }
+@keyframes emi-bg {
+    0%   {background-position: 6% 8%, 94% 92%, 0 0;}
+    50%  {background-position: 28% 34%, 68% 58%, 0 0;}
+    100% {background-position: 14% 46%, 88% 66%, 0 0;}
+}
+@media (prefers-reduced-motion: reduce) {.stApp {animation: none;}}
 
 /* Sidebar — compact, production-ready */
 section[data-testid="stSidebar"] {
