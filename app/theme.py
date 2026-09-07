@@ -519,6 +519,38 @@ def render_footer():
     )
 
 
+from contextlib import contextmanager  # noqa: E402
+
+
+@contextmanager
+def guard(what: str = "this page"):
+    """Catch any error in a page body and show a friendly error panel instead
+    of a raw traceback. Usage:  with guard("Predict Eligibility"): ...
+    """
+    try:
+        yield
+    except Exception as e:  # pragma: no cover - defensive UI
+        st.markdown(
+            f"""
+            <div style="border:1px solid #FCA5A5;border-left:4px solid #DC2626;
+                        border-radius:12px;padding:20px 24px;background:#FEF2F2;
+                        margin:12px 0;">
+              <div style="font-size:1.05rem;font-weight:600;color:#B91C1C;
+                          margin-bottom:6px;">Something went wrong on {what}</div>
+              <div style="color:#7F1D1D;font-size:.92rem;line-height:1.55;">
+                The page hit an unexpected error and couldn't finish. Try again,
+                reload, or head back to the Home page. If it keeps happening the
+                models or data files may be missing.
+              </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        with st.expander("Technical details (for developers)"):
+            st.exception(e)
+        st.stop()
+
+
 def result_card(label: str, value: str, fg: str, bg: str):
     st.markdown(
         f"""
