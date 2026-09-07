@@ -175,6 +175,12 @@ section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
 [data-testid="stSidebarCollapseButton"] {
     position: absolute; top: 10px; right: 10px; margin: 0; z-index: 5;
 }
+/* The now-empty header container still reserved ~48px of flow, leaving a gap
+   between the brand and the nav — zero it out */
+[data-testid="stSidebarHeader"] {
+    height: 0 !important; min-height: 0 !important;
+    padding: 0 !important; margin: 0 !important;
+}
 [data-testid="stSidebarCollapseButton"] button {
     color: #94A3B8; border-radius: 8px; padding: 4px;
     transition: background .18s ease, color .18s ease;
