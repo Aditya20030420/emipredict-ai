@@ -134,6 +134,11 @@ a.nav-card .emi-ic {color:#1565C0;}
 #MainMenu, footer {visibility: hidden;}
 .stApp header[data-testid="stHeader"] {background: transparent;}
 .block-container {padding-top: 2.2rem; padding-bottom: 3rem; max-width: 1200px;}
+/* Center the content (esp. when the sidebar is collapsed) — beat the
+   emotion-generated margin rule with a targeted selector + !important */
+[data-testid="stMainBlockContainer"] {
+    margin-left: auto !important; margin-right: auto !important;
+}
 
 /* Subtle premium background wash (cards stay white and lift off it) */
 .stApp {
